@@ -22,6 +22,10 @@ const download_sources = {
     'yt-dlp': {
         'tags_url': 'https://api.github.com/repos/yt-dlp/yt-dlp/tags',
         'func': downloadLatestYoutubeDLPBinary
+    },
+    'yt-dlp-fork': {
+        'tags_url': 'https://api.github.com/repos/bo0tzz/yt-dlp/tags',
+        'func': downloadLatestYoutubeDLPForkBinary
     }
 }
 
@@ -126,6 +130,17 @@ async function downloadLatestYoutubeDLPBinary(new_version) {
     const file_ext = is_windows ? '.exe' : '';
 
     const download_url = `https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp${file_ext}`;
+    const output_path = `node_modules/youtube-dl/bin/youtube-dl${file_ext}`;
+
+    await utils.fetchFile(download_url, output_path, `yt-dlp ${new_version}`);
+
+    updateDetailsJSON(new_version, 'yt-dlp');
+}
+
+async function downloadLatestYoutubeDLPForkBinary(new_version) {
+    const file_ext = is_windows ? '.exe' : '';
+
+    const download_url = `https://github.com/bo0tzz/yt-dlp/releases/latest/download/yt-dlp${file_ext}`;
     const output_path = `node_modules/youtube-dl/bin/youtube-dl${file_ext}`;
 
     await utils.fetchFile(download_url, output_path, `yt-dlp ${new_version}`);
