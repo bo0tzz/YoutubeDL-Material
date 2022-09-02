@@ -37,7 +37,7 @@ jobs:
         uses: jsdaniell/create-json@1.1.2
         with:
           name: "version.json"
-          json: '{"type": "docker", "tag": "${{secrets.DOCKERHUB_MASTER_TAG}}", "commit": "${{ steps.vars.outputs.sha_short }}", "date": "${{ steps.date.outputs.date }}"}'
+          json: '{"type": "docker", "tag": "latest", "commit": "${{ steps.vars.outputs.sha_short }}", "date": "${{ steps.date.outputs.date }}"}'
           dir: 'backend/'
 
       - name: setup platform emulator
@@ -55,11 +55,10 @@ jobs:
         #     DOCKERHUB_MASTER_TAG: nightly
         with:
           images: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}
-            ghcr.io/${{ github.repository_owner }}/${{ secrets.DOCKERHUB_REPO }}
+            ghcr.io/${{ github.repository_owner }}/youtubedl-material
           tags: |
-            type=raw,${{secrets.DOCKERHUB_MASTER_TAG}}-{{ date 'YYYY-MM-DD' }}
-            type=raw,${{secrets.DOCKERHUB_MASTER_TAG}}
+            type=raw,latest-{{ date 'YYYY-MM-DD' }}
+            type=raw,latest
             type=sha,prefix=sha-,format=short
 
       - name: Login to GitHub Container Registry
