@@ -62,12 +62,6 @@ jobs:
             type=raw,${{secrets.DOCKERHUB_MASTER_TAG}}
             type=sha,prefix=sha-,format=short
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
